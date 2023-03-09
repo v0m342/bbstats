@@ -121,6 +121,23 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 var countrySelect = document.getElementById("country");
 var leagueSelect = document.getElementById("league");
 var usaLeagues = [["NBA", "nba"], ["WNBA", "wnba"], ["G-League", "gleague"]];
+
+// Fetch API
+// Type of requests:
+// GET - 
+// POST  
+// PUT
+// DELETE
+
+var countries = fetch('http://localhost:3000/api/areas').then(function (response) {
+  console.log(response);
+  return response.json();
+}).then(function (data) {
+  console.log(data);
+}).catch(function (reason) {
+  return console.log(reason);
+});
+console.log(countries);
 function addOption(selectElement, optionText, optionValue) {
   var option = document.createElement("option");
   option.text = optionText;
@@ -128,19 +145,22 @@ function addOption(selectElement, optionText, optionValue) {
   selectElement.add(option);
 }
 
-// console.log(usaLeagues[0]);
-
+// Оголошення або визначення функція
+function generateOptions(selectElement, optionsArray) {
+  for (var index = 0; index < optionsArray.length; index++) {
+    var leagueText = optionsArray[index][0];
+    var leagueValue = optionsArray[index][1];
+    addOption(selectElement, leagueText, leagueValue);
+  }
+}
 countrySelect.addEventListener("change", function () {
   // Clear the league select options
   leagueSelect.innerHTML = "";
 
   // Determine which country was selected and show the appropriate options
   if (countrySelect.value === "usa") {
-    for (var index = 0; index < usaLeagues.length; index++) {
-      var leagueText = usaLeagues[index][0];
-      var leagueValue = usaLeagues[index][1];
-      addOption(leagueSelect, leagueText, leagueValue);
-    }
+    // Виклик або запуск функції
+    generateOptions(leagueSelect, usaLeagues);
   } else if (countrySelect.value === "ukraine") {
     addOption(leagueSelect, "Superliga", "superliga");
   } else if (countrySelect.value === "spain") {
@@ -150,12 +170,6 @@ countrySelect.addEventListener("change", function () {
   // Show the league select element
   leagueSelect.style.display = "block";
 });
-var names = ["shaun", "mario", "luigi"];
-for (var i = 0; i < names.length; i++) {
-  //console.log(names[i]);
-  var html = "<div>".concat(names[i], "</div>");
-  console.log(html);
-}
 },{}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -181,7 +195,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57325" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61339" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
